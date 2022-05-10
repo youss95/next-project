@@ -1,9 +1,11 @@
 import Link from "next/link";
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import AirbnbLogoIcon from "../public/static/svg/airbnb_logo.svg";
 import AirbnbLogoTextIcon from "../public/static/svg/airbnb_logo_text.svg";
 import palette from "../styles/palette";
+import SignupModal from "./auth/SignupModal";
+import ModalPortal from "./ModalPortal";
 const Container = styled.div`
   position: sticky;
   top: 0;
@@ -56,6 +58,7 @@ const Container = styled.div`
 
 //함수형 컴포넌트임을 타입을 선언
 const Header: React.FC = () => {
+  const [modalOpened, setModalOpened] = useState(false);
   return (
     <Container>
       <Link href="/">
@@ -65,12 +68,21 @@ const Header: React.FC = () => {
         </a>
       </Link>
       <div className="header-auth-buttons">
-        <button type="button" className="header-sign-up-button">
+        <button
+          type="button"
+          className="header-sign-up-button"
+          onClick={() => setModalOpened(true)}
+        >
           회원가입
         </button>
         <button type="button" className="header-login-button">
           로그인
         </button>
+        {modalOpened && (
+          <ModalPortal closePortal={() => setModalOpened(false)}>
+            <SignupModal />
+          </ModalPortal>
+        )}
       </div>
     </Container>
   );
