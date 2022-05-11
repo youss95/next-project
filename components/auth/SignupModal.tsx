@@ -1,7 +1,7 @@
-import React from "react";
+import React, { useState } from "react";
 import styled from "styled-components";
 import CloseXIcon from "../../public/static/svg/modal_close_x_icon.svg";
-import palette from "../../styles/palette";
+import Input from "../common/Input";
 const Container = styled.form`
   width: 568px;
   padding: 32px;
@@ -15,42 +15,68 @@ const Container = styled.form`
   .input-wrapper {
     position: relative;
     margin-bottom: 16px;
-    input {
-      position: relative;
-      width: 100%;
-      height: 46px;
-      padding: 0 44px 0 11px;
-      border: 1px solid ${palette.gray_eb};
-      border-radius: 4px;
-      font-size: 16px;
-      outline: none;
-      ::placeholder {
-        color: ${palette.gray_76};
-      }
-    }
-    svg {
-      position: absolute;
-      right: 11px;
-      top: 16px;
-    }
   }
 `;
 
 const SignupModal: React.FC = () => {
+  const [email, setEmail] = useState("");
+  const [lastname, setLastname] = useState("");
+  const [firstname, setFirstname] = useState("");
+  const [password, setPassword] = useState("");
+  const [hidePassword, setHidePassword] = useState(true);
+  const onChangeEmail = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setEmail(e.target.value);
+  };
+
+  const onChangeLastname = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setLastname(e.target.value);
+  };
+
+  const onChangeFirstname = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setFirstname(e.target.value);
+  };
+
+  const onChangePassword = (e: React.ChangeEvent<HTMLInputElement>): void => {
+    setPassword(e.target.value);
+  };
+
+  const toggleHidePassword = () => {
+    setHidePassword((prev) => !prev);
+  };
   return (
     <Container>
       <CloseXIcon className="mordal-close-x-icon" />
       <div className="input-wrapper">
-        <input placeholder="email" type="email" name="email" />
+        <Input
+          placeholder="email"
+          type="email"
+          name="email"
+          value={email}
+          onChange={onChangeEmail}
+        />
       </div>
       <div className="input-wrapper">
-        <input placeholder="name" />
+        <Input
+          placeholder="name"
+          value={lastname}
+          onChange={onChangeLastname}
+        />
       </div>
       <div className="input-wrapper">
-        <input placeholder="sex" />
+        <Input
+          placeholder="sex"
+          value={firstname}
+          onChange={onChangeFirstname}
+        />
       </div>
       <div className="input-wrapper">
-        <input placeholder="set password" type="password" />
+        <Input
+          placeholder="set password"
+          type={hidePassword ? "password" : "text"}
+          value={password}
+          onChange={onChangePassword}
+        />
+        <span onClick={toggleHidePassword}>보이기</span>
       </div>
     </Container>
   );
