@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import React, { useEffect, useRef, useState } from "react";
 import { createPortal } from "react-dom";
 import styled from "styled-components";

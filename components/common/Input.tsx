@@ -37,4 +37,4 @@ const Input: React.FC = ({ icon, ...props }) => {
     </Container>
   );
 };
-export default Input;
+export default React.memo(Input);
