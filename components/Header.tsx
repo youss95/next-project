@@ -1,3 +1,4 @@
+/* eslint-disable react/function-component-definition */
 import Link from "next/link";
 import React, { useState } from "react";
 import styled from "styled-components";
@@ -59,7 +60,7 @@ const Container = styled.div`
 
 //함수형 컴포넌트임을 타입을 선언
 const Header: React.FC = () => {
-  const { openModalPortal, ModalPortal } = useModal();
+  const { openModalPortal, ModalPortal, closeModal } = useModal();
   return (
     <Container>
       <Link href="/">
@@ -81,7 +82,7 @@ const Header: React.FC = () => {
         </button>
 
         <ModalPortal>
-          <SignupModal />
+          <SignupModal closeModal={closeModal} />
         </ModalPortal>
       </div>
     </Container>
