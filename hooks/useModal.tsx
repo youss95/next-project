@@ -3,8 +3,8 @@ import { createPortal } from "react-dom";
 import styled from "styled-components";
 
 const Container = styled.div`
-  width: 100%;
-  height: 100%;
+  width: 100vw;
+  height: 100vh;
   display: flex;
   justify-content: center;
   align-items: center;
@@ -17,6 +17,33 @@ const Container = styled.div`
     height: 100%;
     background-color: rgba(0, 0, 0, 0.75);
     z-index: 10;
+  }
+  .on {
+    transition: all 0.3s ease-out;
+  }
+  @keyframes FadeIn {
+    0% {
+      opacity: 0;
+    }
+    1% {
+      opacity: 0;
+      transform: translateY(100%);
+    }
+    100% {
+      opacity: 1;
+    }
+  }
+
+  @keyframes FadeOut {
+    0% {
+      opacity: 1;
+    }
+    1% {
+      opacity: 1;
+    }
+    100% {
+      opacity: 0;
+    }
   }
 `;
 //useModal 훅에 Modal컴포넌트 , 함수포함
@@ -50,7 +77,7 @@ const useModal = () => {
       return createPortal(
         <Container>
           <div
-            className="modal-background"
+            className={["modal-background", modalOpened ? "on" : ""].join(" ")}
             role="presentation"
             onClick={closeModal}
           />
