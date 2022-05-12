@@ -5,6 +5,7 @@ import Input from "../common/Input";
 import Selector from "../common/Selector";
 import { dayList, monthList, yearList } from "../../lib/staticData";
 import palette from "../../styles/palette";
+import Button from "../common/Button";
 const Container = styled.form`
   width: 568px;
   padding: 32px;
@@ -173,6 +174,9 @@ const SignupModal: React.FC = ({ closeModal }) => {
             onChange={onChangeBirthYear}
           />
         </div>
+      </div>
+      <div className="sign-up-modal-submit-button-wrapper">
+        <Button type="submit">가입</Button>
       </div>
     </Container>
   );
