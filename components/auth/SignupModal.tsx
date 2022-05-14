@@ -6,6 +6,9 @@ import Selector from "../common/Selector";
 import { dayList, monthList, yearList } from "../../lib/staticData";
 import palette from "../../styles/palette";
 import Button from "../common/Button";
+import { signupAPI } from "../../lib/api/auth";
+import { useDispatch } from "react-redux";
+import { userActions } from "../../store/user";
 const Container = styled.form`
   width: 568px;
   padding: 32px;
@@ -57,6 +60,7 @@ const SignupModal: React.FC = ({ closeModal }) => {
   const [birthYear, setBirthYear] = useState<string | undefined>();
   const [birthDay, setBirthDay] = useState<string | undefined>();
   const [birthMonth, setBirthMonth] = useState<string | undefined>();
+  const dispatch = useDispatch();
   const onChangeEmail = useCallback(
     (e: React.ChangeEvent<HTMLInputElement>): void => {
       setEmail(e.target.value);
@@ -109,8 +113,28 @@ const SignupModal: React.FC = ({ closeModal }) => {
     },
     []
   );
+
+  const onSubmitSignUp = async (event) => {
+    event.preventDefault();
+    console.log("sss");
+    try {
+      const signUpBody = {
+        email,
+        lastname,
+        firstname,
+        password,
+        birthday: new Date(),
+      };
+      const { data } = await signupAPI(signUpBody);
+      console.log("data", data);
+      dispatch(userActions.setLoggedUser(data));
+    } catch (e) {
+      console.log(e);
+    }
+  };
+
   return (
-    <Container>
+    <Container onSubmit={onSubmitSignUp}>
       <CloseXIcon className="mordal-close-x-icon" onClick={closeModal} />
       <div className="input-wrapper">
         <Input

@@ -7,6 +7,7 @@ const Container = styled.button`
   height: 48px;
   border: 0;
   border-radius: 5px;
+  cursor: pointer;
 `;
 
 const Button: React.FC = ({ children, ...props }) => {
